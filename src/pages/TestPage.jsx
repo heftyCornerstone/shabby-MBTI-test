@@ -12,7 +12,7 @@ const TestPage = () => {
   const [result, setResult] = useState(null);
 
   const { data } = useQuery({
-    queryKey: ['getUerResult'],
+    queryKey: ['getUserResult'],
     queryFn: () => getUserTestResult(userId)
   })
 
