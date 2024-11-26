@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .lime-button {
+        @apply p-2 rounded-lg bg-lime-600 text-white font-bold hover:bg-lime-700;
+    }
+    .nav-link{
+        @apply hover:text-orange-600;
+    }
+    .common-border {
+        @apply rounded-md border-zinc-500 border-solid border-2
+    }
+}
