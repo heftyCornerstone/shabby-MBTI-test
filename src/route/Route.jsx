@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../pages/Home";
-import Test from "../pages/Test";
+import TestPage from "../pages/TestPage";
 import Profile from "../pages/Profile";
 import Results from "../pages/Results";
 import ProtectedRoutes from "../components/protectedRoutes/ProtectedRoutes";
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: '/test',
-                        element: <Test />
+                        element: <TestPage />
                     },
                     {
                         path: '/results',
