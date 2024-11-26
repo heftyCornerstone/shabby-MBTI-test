@@ -4,18 +4,23 @@ import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import { useNavigate } from "react-router-dom";
 import useUserAuthStore from "../zustand/userAuthStore";
 import { createTestResult, getUserTestResult, updateTestResult } from "../api/testResult";
+import { useQuery } from "@tanstack/react-query";
 
 const TestPage = () => {
   const { userId } = useUserAuthStore();
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
 
+  const { data } = useQuery({
+    queryKey: ['getUerResult'],
+    queryFn: () => getUserTestResult(userId)
+  })
+
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
 
     //테스트 결과 생성, 이미 결과가 존재한다면 새 결과로 업데이트
-    const isExistingResult = await getUserTestResult(userId);
-    (isExistingResult) ? updateTestResult({ userId, mbtiResult }) : createTestResult({ userId, mbtiResult });
+    (data) ? updateTestResult({ userId, mbtiResult }) : createTestResult({ userId, mbtiResult });
 
     setResult(mbtiResult);
   };

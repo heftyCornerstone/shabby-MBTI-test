@@ -1,6 +1,11 @@
 import { mbtiDescriptions } from "../utils/mbtiCalculator";
 import useUserAuthStore from "../zustand/userAuthStore";
 import useGetTestResults from "../hooks/useGetTestResults";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getUserTestResult,
+  updateTestResultVisibility,
+} from "../api/testResult";
 
 /*
 updateTestResultVisibility API로 공개 여부를 변경합니다.
@@ -10,13 +15,35 @@ refresh 기능:
 - TanstackQuery 를 이용하면 조금 더 쉽게 가능 할 것입니다.
 */
 const TestResultItemBtnSet = () => {
+  const queryClient = useQueryClient();
+  const { userId } = useUserAuthStore();
+  //til 거리
+  const { data, isError: isGetError } = useQuery({
+    queryKey: ["getUerResult"],
+    queryFn: () => getUserTestResult(userId),
+  });
+  if (isGetError) console.error(isGetError);
+  console.log("re-renderd! ", data.visibility);
+
+  const { mutate } = useMutation({
+    mutationFn: updateTestResultVisibility,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getUerResult"]);
+    },
+  });
+
+  const handleVisibility = () => {
+    mutate(userId);
+  };
+
   return (
     <div className="justify-end flex gap-4">
       <button
+        onClick={handleVisibility}
         type="button"
         className="sm-button bg-lime-600 hover:bg-lime-700"
       >
-        숨기기
+        {data.visibility ? "숨기기" : "보이기"}
       </button>
       <button
         type="button"
@@ -29,7 +56,8 @@ const TestResultItemBtnSet = () => {
 };
 
 // `TestResultItem`은 각 항목의 개별적인 동작(공개 여부 변경, 삭제)을 처리합니다.
-const TestResultItem = ({ userName, mbtiType, isOwner }) => {
+const TestResultItem = ({ config, isOwner }) => {
+  const { userName, mbtiType } = config;
   const content = mbtiDescriptions[mbtiType].split(":")[1];
 
   return (
@@ -58,16 +86,12 @@ const TestResultList = () => {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        testResultsData.map(({ id, testResult }) => {
+        testResultsData.map(({ id, testResult, visibility }) => {
           const isOwner = !(id === userId);
-          return (
-            <TestResultItem
-              key={id}
-              mbtiType={testResult}
-              userName={id}
-              isOwner={isOwner}
-            />
-          );
+          const config = { mbtiType: testResult, userName: id };
+          return visibility ? (
+            <TestResultItem key={id} config={config} isOwner={isOwner} />
+          ) : null;
         })
       )}
     </>
@@ -76,13 +100,40 @@ const TestResultList = () => {
 
 const Results = () => {
   //각 항목을 TestResultItem으로 렌더링합니다.
+  const { userId } = useUserAuthStore();
+
+  const {
+    data,
+    isError,
+    isPending: isLoading,
+  } = useQuery({
+    queryKey: ["getUerResult"],
+    queryFn: () => getUserTestResult(userId),
+  });
+  if (isError) console.error(isError);
+
+  const myResultConfig = {
+    mbtiType: data.testResult,
+    userName: userId,
+  };
+
   return (
     <>
       <div className="flex flex-col items-center">
         <div className="w-3/4 flex flex-col items-center gap-14">
-          <div className="flex flex-col items-center gap-14">
+          <div className="flex flex-col items-center">
+            <h4 className="mb-3 w-3/4 text-2xl font-bold">나의 결과</h4>
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <TestResultItem config={myResultConfig} isMine={true} />
+            )}
+          </div>
+          <div className="flex flex-col items-center">
             <h4 className="mb-3 w-3/4 text-2xl font-bold">모든 테스트 결과</h4>
-            <TestResultList />
+            <div className="flex flex-col items-center gap-14">
+              <TestResultList />
+            </div>
           </div>
         </div>
       </div>
