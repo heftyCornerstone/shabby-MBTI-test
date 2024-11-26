@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { register } from "../api/auth";
 import AuthForm from "../components/UserInfoForm";
 
 const SignupPage = () => {
+  const navigate = useNavigate()
   const formConfigData = [{ id: 'id', name: '아이디' }, { id: 'nickName', name: '닉네임' }, { id: 'password', name: '비밀번호' }];
-  const handleOnSumbit = (e) => {
+  const handleOnSumbit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = {
@@ -11,7 +13,8 @@ const SignupPage = () => {
       "password": formData.get('password'),
       "nickname": formData.get('nickName')
     }
-    register(userData);
+    await register(userData);
+    navigate('/');
   } 
 
   return (

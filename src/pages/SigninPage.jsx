@@ -3,11 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { signin } from "../api/auth";
 import AuthForm from "../components/UserInfoForm";
 import useUserAuthStore from "../zustand/userAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const SigninPage = () => {
+  const navigate = useNavigate();
   let userData = {};
-  const { isSignin, userSignedIn, setToken, setUserId, setNickname } = useUserAuthStore();
-  console.log(isSignin);
+  const { userSignedIn, setToken, setUserId, setNickname } = useUserAuthStore();
 
   const formConfigData = [{ id: 'id', name: '아이디' }, { id: 'password', name: '비밀번호' }];
 
@@ -35,6 +36,7 @@ const SigninPage = () => {
       setToken(accessToken);
       setUserId(userId);
       setNickname(nickname);
+      navigate('/');
     }
   }, [isSuccess]);
 

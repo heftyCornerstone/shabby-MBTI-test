@@ -11,7 +11,7 @@ import {
 const TestResultItemBtnSet = () => {
   const queryClient = useQueryClient();
   const { userId } = useUserAuthStore();
-  //til 거리
+
   const { data, isPending:isLoading, isError: isGetError } = useQuery({
     queryKey: ["getUserResult"],
     queryFn: () => getUserTestResult(userId),
@@ -60,7 +60,6 @@ const TestResultItemBtnSet = () => {
   );
 };
 
-// `TestResultItem`은 각 항목의 개별적인 동작(공개 여부 변경, 삭제)을 처리합니다.
 const TestResultItem = ({ config, isOwner }) => {
   const { userName, mbtiType } = config;
   const mbtiData = mbtiDescriptions[mbtiType];
@@ -84,7 +83,6 @@ const TestResultItem = ({ config, isOwner }) => {
   );
 };
 
-//`TestResultList`는 데이터를 받아서 필터링 및 리스트 렌더링을 담당합니다.
 const TestResultList = () => {
   const { userId } = useUserAuthStore();
   const { testResultsData, isLoading } = useGetTestResults();
@@ -107,7 +105,6 @@ const TestResultList = () => {
 };
 
 const Results = () => {
-  //각 항목을 TestResultItem으로 렌더링합니다.
   const { userId } = useUserAuthStore();
 
   const {
@@ -152,14 +149,3 @@ const Results = () => {
 };
 
 export default Results;
-
-/*
-<div className="flex flex-col items-center">
-  <h4 className="mb-3 w-3/4 text-2xl font-bold">나의 결과</h4>
-  <TestResultItem
-    mbtiType={testResult}
-    userName={userId}
-    isMine={true}
-  />
-</div>
-*/
