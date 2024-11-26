@@ -1,4 +1,29 @@
 {
   "testResults": [
+    {
+      "id": "tester110101",
+      "testResult": "ESTJ",
+      "visibility": true
+    },
+    {
+      "id": "name1",
+      "testResult": "ISFP",
+      "visibility": true
+    },
+    {
+      "id": "name2",
+      "testResult": "ENFP",
+      "visibility": true
+    },
+    {
+      "id": "name3",
+      "testResult": "INTP",
+      "visibility": true
+    },
+    {
+      "id": "name4",
+      "testResult": "ESTP",
+      "visibility": true
+    }
   ]
 }

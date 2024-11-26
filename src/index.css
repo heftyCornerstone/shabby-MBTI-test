@@ -6,6 +6,9 @@
     .lime-button {
         @apply p-2 rounded-lg bg-lime-600 text-white font-bold hover:bg-lime-700;
     }
+    .sm-button {
+        @apply p-1 font-bold text-white rounded-lg;
+    }
     .nav-link{
         @apply hover:text-orange-600;
     }

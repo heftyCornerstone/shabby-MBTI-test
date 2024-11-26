@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { questions } from "../../data/questions";
+import { useNavigate } from "react-router-dom";
 
 const TestItemInput = ({ itemId, config, handleInputChange, answers }) => {
 
@@ -51,17 +52,19 @@ const TestForm = ({ onTestSubmit }) => {
     const [answers, setAnswers] = useState(
         Array(questions.length).fill({ type: "", answer: "" }),
     );
-
+    const navigate = useNavigate();
+    
     const handleInputChange = (i, value) => {
         const newAnswers = [...answers];
         newAnswers[i] = { type: questions[i].type, answer: value };
         setAnswers(newAnswers);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Answers:", answers);
-        onTestSubmit(answers);
+        await onTestSubmit(answers);
+        navigate("/results");
     };
 
     return (
