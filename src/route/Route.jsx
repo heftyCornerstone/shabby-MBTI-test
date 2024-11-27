@@ -6,8 +6,8 @@ import Results from "../pages/Results";
 import ProtectedRoutes from "../components/protectedRoutes/ProtectedRoutes";
 import SignupPage from "../pages/SignupPage";
 import SigninPage from "../pages/SigninPage";
-import DeleteAccount from "../pages/DeleteAccount";
 import Layout from "../components/layouts/Layout";
+import PageNotFound from "../pages/PageNotFound";
 
 const router = createBrowserRouter([
     {
@@ -39,14 +39,14 @@ const router = createBrowserRouter([
                     {
                         path: '/profile',
                         element: <Profile />
-                    },
-                    {
-                        path: '/delete-account',
-                        element: <DeleteAccount />
-                    },
+                    }
                 ]
             }
         ]
+    },
+    {
+        path: '*',
+        element: <PageNotFound />
     },
 ]);
 

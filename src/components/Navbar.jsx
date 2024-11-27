@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import useUserAuthStore from "../zustand/userAuthStore"
 
 const SignedNavContents = () => {
   return (
@@ -20,7 +21,7 @@ const NotSignedNavContents = () => {
 }
 
 const Navbar = () => {
-  const isSignin = true;
+  const { isSignin } = useUserAuthStore();
   return (
     <nav className="flex items-center bg-slate-300 h-14">
       {
