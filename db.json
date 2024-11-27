@@ -1,11 +1,6 @@
 {
   "testResults": [
     {
-      "id": "tester110101",
-      "testResult": "ESTJ",
-      "visibility": false
-    },
-    {
       "id": "name1",
       "testResult": "ISFP",
       "visibility": true

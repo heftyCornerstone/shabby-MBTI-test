@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useUserAuthStore from "../zustand/userAuthStore";
 import { createTestResult} from "../api/testResult";
 import useGetUserTestResult from "../hooks/useGetUserTestResult";
-import { TestForm } from "../components/test/TestForm";
+import { TestForm } from "../components/mbtiTest/TestForm";
 
 
 const TestPage = () => {
