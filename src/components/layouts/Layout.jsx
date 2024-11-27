@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <main className='mt-10'>
+      <main className='mt-10 flex flex-col items-center'>
         <Outlet />
       </main>
     </>

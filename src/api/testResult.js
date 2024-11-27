@@ -1,15 +1,14 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/testResults';
+import { serverApi, serverApiUserInfo } from '../axios/api';
 
 export const getTestResults = async () => {
-    const response = await axios.get(API_URL);
+    const response = await serverApi.get();
     return response.data;
 };
 
-export const getUserTestResult = async (userId) => {
+export const getUserTestResult = async () => {
     try {
-        const response = await axios.get(`${API_URL}/${userId}`);
+        const response = await serverApiUserInfo.get();
+
         return response.data;
     } catch {
         return null;
@@ -24,23 +23,22 @@ export const createTestResult = async (resultData) => {
         "visibility": true
     }
     const resultJson = JSON.stringify(result);
-    const response = await axios.post(`${API_URL}`, resultJson);
+    const response = await serverApi.post('', resultJson);
 
     return response.data
 };
 
-export const updateTestResult = async (resultData) => {
-    const { userId, mbtiResult } = resultData;
+export const updateTestResult = async (mbtiResult) => {
     const patchData = {
         "testResult": mbtiResult
     };
-    const response = await axios.patch(`${API_URL}/${userId}`, patchData);
+    const response = await serverApiUserInfo.patch('', patchData);
 
     return response.data;
 };
 
-export const deleteTestResult = async (userId) => {
-    const response = await axios.delete(`${API_URL}/${userId}`);
+export const deleteTestResult = async () => {
+    const response = await serverApiUserInfo.delete();
     return response.data;
 };
 
@@ -49,7 +47,7 @@ export const updateTestResultVisibility = async (userId) => {
     const patchData = {
         "visibility": !(visibility)
     };
-    const response = await axios.patch(`${API_URL}/${userId}`, patchData);
+    const response = await serverApiUserInfo.patch('', patchData);
 
     return response.data;
 };

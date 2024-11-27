@@ -13,14 +13,14 @@ const TestPage = () => {
 
   const { data } = useQuery({
     queryKey: ['getUserResult'],
-    queryFn: () => getUserTestResult(userId)
+    queryFn: () => getUserTestResult()
   })
 
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
 
     //테스트 결과 생성, 이미 결과가 존재한다면 새 결과로 업데이트
-    (data) ? updateTestResult({ userId, mbtiResult }) : createTestResult({ userId, mbtiResult });
+    (data) ? updateTestResult(mbtiResult) : createTestResult({ userId, mbtiResult });
 
     setResult(mbtiResult);
   };

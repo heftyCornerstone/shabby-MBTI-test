@@ -113,7 +113,7 @@ const Results = () => {
     isPending: isLoading,
   } = useQuery({
     queryKey: ["getUserResult"],
-    queryFn: () => getUserTestResult(userId),
+    queryFn: () => getUserTestResult(),
   });
   if (isError) console.error(isError);
 
@@ -130,19 +130,17 @@ const Results = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <div className="w-3/4 flex flex-col items-center gap-14">
-          <div className="w-full flex flex-col items-center">
-            <h4 className="mb-3 w-3/4 text-2xl font-bold">나의 결과</h4>
-            {isLoading ? <div>Loading...</div> : myResult}
+      <div className="w-3/4 flex flex-col items-center gap-14">
+        <section className="w-full flex flex-col items-center">
+          <h4 className="mb-3 w-3/4 text-2xl font-bold">나의 결과</h4>
+          {isLoading ? <div>Loading...</div> : myResult}
+        </section>
+        <section className="flex flex-col items-center">
+          <h4 className="mb-3 w-3/4 text-2xl font-bold">모든 테스트 결과</h4>
+          <div className="flex flex-col items-center gap-14">
+            <TestResultList />
           </div>
-          <div className="flex flex-col items-center">
-            <h4 className="mb-3 w-3/4 text-2xl font-bold">모든 테스트 결과</h4>
-            <div className="flex flex-col items-center gap-14">
-              <TestResultList />
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
     </>
   );

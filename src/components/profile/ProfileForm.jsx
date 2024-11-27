@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const ProfileForm = () => {
     let fetchData = {}
-    const { nickname, token, setNickname } = useUserAuthStore();
+    const { nickname, setNickname } = useUserAuthStore();
 
     const { data: queryData, isSuccess, isError, refetch } = useQuery({
         queryKey: ['UpdateUserInfo'],
@@ -16,8 +16,7 @@ const ProfileForm = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        fetchData = { formData, token }
+        fetchData = new FormData(e.target);
         refetch();
     }
 
