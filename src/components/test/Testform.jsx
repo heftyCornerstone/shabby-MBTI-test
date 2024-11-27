@@ -6,7 +6,6 @@ import TestItem from "./TestItem";
 export const testFormContext = createContext();
 
 export const TestForm = ({ onTestSubmit }) => {
-    //유효성 검사 필요
     const navigate = useNavigate();
     const answersState = useState(
         Array(questions.length).fill({ type: "", answer: "" }),

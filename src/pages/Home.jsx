@@ -1,13 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import HomePrologue from "../components/home/HomePrologue";
 import useUserAuthStore from "../zustand/userAuthStore";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const {isSignin} = useUserAuthStore();
   const navigate = useNavigate();
   const handleOnStartTestClick = () => {
     if(isSignin) return navigate('/test');
-    window.alert('로그인 페이지로 이동합니다');
+    Swal.fire({
+      title: "로그인 해주세요!",
+      text: "로그인 페이지로 이동합니다",
+      icon: "warning"
+    });
     navigate('/signin');
   }
   

@@ -4,7 +4,11 @@ import AuthForm from "../components/UserInfoForm";
 
 const SignupPage = () => {
   const navigate = useNavigate()
-  const formConfigData = [{ id: 'id', name: '아이디' }, { id: 'nickName', name: '닉네임' }, { id: 'password', name: '비밀번호' }];
+  const formConfigData = [
+    { id: 'id', name: '아이디', inputType: 'text' },
+    { id: 'nickName', name: '닉네임', inputType: 'text' },
+    { id: 'password', name: '비밀번호', inputType: 'password' }
+  ];
   const handleOnSumbit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -15,7 +19,7 @@ const SignupPage = () => {
     }
     await register(userData);
     navigate('/');
-  } 
+  }
 
   return (
     <div className="flex flex-col items-center gap-5">

@@ -3,14 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { signin } from "../api/auth";
 import AuthForm from "../components/UserInfoForm";
 import useUserAuthStore from "../zustand/userAuthStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SigninPage = () => {
   const navigate = useNavigate();
   let userData = {};
   const { userSignedIn, setToken, setUserId, setNickname } = useUserAuthStore();
 
-  const formConfigData = [{ id: 'id', name: '아이디' }, { id: 'password', name: '비밀번호' }];
+  const formConfigData = [
+    { id: 'id', name: '아이디', inputType: 'text' },
+    { id: 'password', name: '비밀번호', inputType: 'password' }
+  ];
 
   const { data, isSuccess, isError, refetch } = useQuery({
     queryKey: ["setUserAuth"],
@@ -28,10 +31,10 @@ const SigninPage = () => {
     }
     refetch();
   }
-  //로그인이 되면 홈으로 가면 좋겠는데
+
   useEffect(() => {
     if (isSuccess) {
-      const {accessToken, userId, nickname} = data;
+      const { accessToken, userId, nickname } = data;
       userSignedIn();
       setToken(accessToken);
       setUserId(userId);
@@ -46,40 +49,9 @@ const SigninPage = () => {
       <div className="common-border">
         <AuthForm configData={formConfigData} submitBtnName={'로그인'} onSumbitForm={handleOnSumbit} />
       </div>
+      <Link to='/signup' className="underline text-sky-600">아직 회원이 아니신가요?</Link>
     </div>
   );
 }
 
 export default SigninPage
-
-
-// const [userData, setUserData] = useState();
-// const { isSignin, userSignedIn, setToken, setNickname, setUserId } = useUserAuthStore();
-// console.log(isSignin);
-
-// const formConfigData = [{ id: 'id', name: '아이디' }, { id: 'password', name: '비밀번호' }];
-
-// const { data, isSuccess, isError, refetch } = useQuery({
-//   queryKey: ["userAuth"],
-//   queryFn: () => signin(userData),
-//   enabled: false
-// });
-// if (isError) console.error(isError);
-// if (isSuccess) {
-//   const { accessToken, userId, nickname } = data;
-//   userSignedIn()
-//   setToken(accessToken);
-//   setUserId(userId);
-//   setNickname(nickname);
-// };
-
-// const handleOnSumbit = (e) => {
-//   e.preventDefault();
-//   const formData = new FormData(e.target);
-//   const userData = {
-//     "id": formData.get('id'),
-//     "password": formData.get('password')
-//   }
-//   setUserData(userData);
-//   refetch();
-// }
