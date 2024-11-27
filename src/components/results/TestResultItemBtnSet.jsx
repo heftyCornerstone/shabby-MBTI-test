@@ -1,14 +1,9 @@
 import useUserAuthStore from "../../zustand/userAuthStore";
-import useGetUserTestResult from "../../hooks/useGetUserTestResult";
-import useMutateVisibility from "../../hooks/useMutateVisibility";
-import useDeleteUserResult from "../../hooks/useDeleteUserResult";
+import useResultManager from "../../hooks/useResultManager";
 
 const TestResultItemBtnSet = () => {
     const { userId } = useUserAuthStore();
-
-    const { data, isLoading } = useGetUserTestResult(userId);
-    const petchVisibility = useMutateVisibility();
-    const deleteResult = useDeleteUserResult();
+    const { data, isLoading, petchVisibility, deleteResult } = useResultManager(userId);
 
     const handleVisibility = () => {
         petchVisibility(userId);
