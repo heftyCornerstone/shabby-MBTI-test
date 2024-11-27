@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { questions } from "../../data/questions";
-import { testFormContext } from "./TestForm";
+import { testFormContext } from "../../context/testFormContext";
 
 const TestItemInput = ({ itemId, config }) => {
     const [answers, setAnswers] = useContext(testFormContext);

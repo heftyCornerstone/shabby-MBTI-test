@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { questions } from "../../data/questions";
 import { useNavigate } from "react-router-dom";
 import TestItem from "./TestItem";
-
-export const testFormContext = createContext();
+import { testFormContext } from "../../context/testFormContext";
 
 export const TestForm = ({ onTestSubmit }) => {
+
     const navigate = useNavigate();
     const answersState = useState(
         Array(questions.length).fill({ type: "", answer: "" }),

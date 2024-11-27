@@ -5,6 +5,7 @@ import { createTestResult} from "../api/testResult";
 import useGetUserTestResult from "../hooks/useGetUserTestResult";
 import { TestForm } from "../components/test/TestForm";
 
+
 const TestPage = () => {
   const { userId } = useUserAuthStore();
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const TestPage = () => {
         </>
       ) : (
         <>
-            <h1 className="text-4xl font-bold">테스트 결과: {testResult}</h1>
+          <h1 className="text-4xl font-bold">테스트 결과: {testResult}</h1>
           <p className="text-lg text-gray-700 mb-6">
               {mbtiDescriptions[testResult] ||
               "해당 성격 유형에 대한 설명이 없습니다."}
