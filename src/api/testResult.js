@@ -28,14 +28,14 @@ export const createTestResult = async (resultData) => {
     return response.data
 };
 
-export const updateTestResult = async (mbtiResult) => {
-    const patchData = {
-        "testResult": mbtiResult
-    };
-    const response = await serverApiUserInfo.patch('', patchData);
+// export const updateTestResult = async (mbtiResult) => {
+//     const patchData = {
+//         "testResult": mbtiResult
+//     };
+//     const response = await serverApiUserInfo.patch('', patchData);
 
-    return response.data;
-};
+//     return response.data;
+// };
 
 export const deleteTestResult = async () => {
     const response = await serverApiUserInfo.delete();
