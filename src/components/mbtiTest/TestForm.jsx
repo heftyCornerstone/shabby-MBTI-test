@@ -3,6 +3,7 @@ import { questions } from "../../data/questions";
 import { useNavigate } from "react-router-dom";
 import TestItem from "./TestItem";
 import { testFormContext } from "../../context/testFormContext";
+import Swal from "sweetalert2";
 
 export const TestForm = ({ onTestSubmit }) => {
     const navigate = useNavigate();
@@ -16,7 +17,12 @@ export const TestForm = ({ onTestSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await onTestSubmit(answers);
-        navigate("/results");
+        Swal.fire({
+            text: "3초 뒤에 결과 페이지로 이동합니다",
+            icon: "success"
+        });
+        setTimeout(()=>navigate("/results"), 3000);
+        ;
     };
 
     return (
