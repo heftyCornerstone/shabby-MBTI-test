@@ -14,7 +14,7 @@ const TestItemInput = ({ itemId, config }) => {
     };
 
     return (
-        <div className="p-3 border-zinc-500 border-solid border-2">
+        <div className="p-3 border-zinc-500 border-solid border-2 cursor-pointer">
             <input
                 type="radio"
                 name={`test-item_${itemId}`}

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER_API_URL = 'http://localhost:5000/testResults';
+const SERVER_API_URL = 'https://tall-peridot-colby.glitch.me/testResults';
 const JWT_API_URL = 'https://moneyfulpublicpolicy.co.kr';
 
 

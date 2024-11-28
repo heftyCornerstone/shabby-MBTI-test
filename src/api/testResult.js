@@ -18,12 +18,11 @@ export const getUserTestResult = async () => {
 export const createTestResult = async (resultData) => {
     const { userId, mbtiResult } = resultData;
     const result = {
-        "id": userId,
-        "testResult": mbtiResult,
-        "visibility": true
+        id: userId,
+        testResult: mbtiResult,
+        visibility: true
     }
-    const resultJson = JSON.stringify(result);
-    const response = await serverApi.post('', resultJson);
+    const response = await serverApi.post('', result);
 
     return response.data
 };
