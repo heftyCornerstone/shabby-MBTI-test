@@ -18,11 +18,8 @@ export const getUserProfile = async () => {
     return response.data;
 };
 
-export const updateProfile = async (data) => {
-    const { formData} = data;
+export const updateProfile = async (formData) => {
     const response = await authApiToken.patch('/profile', formData);
 
     return response.data;
 };
-
-//const response = await axios.patch('/profile', formData);

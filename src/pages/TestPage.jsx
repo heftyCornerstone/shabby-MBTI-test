@@ -7,16 +7,14 @@ import { TestForm } from "../components/mbtiTest/TestForm";
 
 
 const TestPage = () => {
-  const { userId } = useUserAuthStore();
   const navigate = useNavigate();
-
+  const { userId } = useUserAuthStore();
   const { data } = useGetUserTestResult();
   const testResult = (data) ? data.testResult : null;
 
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
 
-    //테스트 결과 생성
     createTestResult({ userId, mbtiResult });
   };
 

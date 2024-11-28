@@ -2,6 +2,7 @@ import useUserAuthStore from "../../zustand/userAuthStore";
 import { updateProfile } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const ProfileForm = () => {
     let fetchData = {}
@@ -24,6 +25,10 @@ const ProfileForm = () => {
         if (isSuccess) {
             const { nickname: newNickname } = queryData;
             setNickname(newNickname);
+            Swal.fire({
+                text: "닉네임이 성공적으로 바뀌었습니다",
+                icon: "success"
+            });
         }
     }, [isSuccess]);
 

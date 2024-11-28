@@ -5,7 +5,7 @@ import { testFormContext } from "../../context/testFormContext";
 const TestItemInput = ({ itemId, config }) => {
     const [answers, setAnswers] = useContext(testFormContext);
     const { id, option, type } = config;
-    const qIndex = id - 1;
+    const questionId = id - 1;
 
     const handleInputChange = (i, value) => {
         const newAnswers = [...answers];
@@ -20,8 +20,8 @@ const TestItemInput = ({ itemId, config }) => {
                 name={`test-item_${itemId}`}
                 id={`test-item_${itemId}`}
                 value={option}
-                checked={answers[qIndex]?.answer === type}
-                onChange={() => handleInputChange(qIndex, type)}
+                checked={answers[questionId]?.answer === type}
+                onChange={() => handleInputChange(questionId, type)}
             />
             <label htmlFor={`test-item_${itemId}`} className="pl-3">
                 {option}

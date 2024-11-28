@@ -5,8 +5,9 @@ import TestItem from "./TestItem";
 import { testFormContext } from "../../context/testFormContext";
 
 export const TestForm = ({ onTestSubmit }) => {
-
     const navigate = useNavigate();
+
+    //testItem의 input 내용을 저장한다
     const answersState = useState(
         Array(questions.length).fill({ type: "", answer: "" }),
     );
