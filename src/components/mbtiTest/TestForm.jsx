@@ -17,12 +17,11 @@ export const TestForm = ({ onTestSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await onTestSubmit(answers);
+        setTimeout(()=>navigate("/results"), 3000);
         Swal.fire({
             text: "3초 뒤에 결과 페이지로 이동합니다",
             icon: "success"
         });
-        setTimeout(()=>navigate("/results"), 3000);
-        ;
     };
 
     return (

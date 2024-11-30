@@ -1,23 +1,17 @@
 import useUserAuthStore from "../../zustand/userAuthStore";
-import { updateProfile } from "../../api/auth";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import useChangeNickname from "../../hooks/useChangeNickname";
 
 const ProfileForm = () => {
-    let fetchData = {}
+    const [fetchData, setFetchData] = useState(null);
     const { nickname, setNickname } = useUserAuthStore();
-
-    const { data: queryData, isSuccess, isError, refetch } = useQuery({
-        queryKey: ['UpdateUserInfo'],
-        queryFn: () => updateProfile(fetchData),
-        enabled: false
-    });
-    if (isError) console.error(isError);
+    const { data: queryData, isSuccess, refetch } = useChangeNickname(fetchData);
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        fetchData = new FormData(e.target);
+        const formData = new FormData(e.target);
+        setFetchData(formData);
         refetch();
     }
 

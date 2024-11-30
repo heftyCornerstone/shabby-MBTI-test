@@ -1,34 +1,27 @@
-import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { signin } from "../api/auth";
+import { useEffect, useState } from "react";
 import AuthForm from "../components/UserInfoForm";
 import useUserAuthStore from "../zustand/userAuthStore";
 import { Link, useNavigate } from "react-router-dom";
+import useSignin from "../hooks/useSignin";
 
 const SigninPage = () => {
   const navigate = useNavigate();
-  let userData = {};
+  const [userData, setUserdata] = useState(null);
   const { userSignedIn, setToken, setUserId, setNickname } = useUserAuthStore();
-
+  const { data, isSuccess, refetch } = useSignin(userData);
   const formConfigData = [
     { id: 'id', name: '아이디', inputType: 'text' },
     { id: 'password', name: '비밀번호', inputType: 'password' }
   ];
 
-  const { data, isSuccess, isError, refetch } = useQuery({
-    queryKey: ["setUserAuth"],
-    queryFn: () => signin(userData),
-    enabled: false
-  });
-  if (isError) console.error(isError);
-
   const handleOnSumbit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    userData = {
+    const userformData = {
       "id": formData.get('id'),
       "password": formData.get('password')
     }
+    setUserdata(userformData)
     refetch();
   }
 
